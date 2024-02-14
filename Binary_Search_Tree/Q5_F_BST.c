@@ -88,9 +88,40 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+//스택 2개 사용해서 후위순회->left->right->root
 void postOrderIterativeS2(BSTNode *root)
 {
-	 /* add your code here */
+	/* add your code here */
+	Stack s1;
+	Stack s2;
+	s1.top = NULL;
+	s2.top = NULL;
+
+	BSTNode *temp;
+	temp = root;
+
+	if(temp ==NULL)	return;
+	else
+	{
+		push(&s1,temp);
+
+		while(!isEmpty(&s1))
+		{
+			temp = pop(&s1);
+			push(&s2, temp);
+
+			if(temp->left !=NULL)
+				push(&s1,temp->left);
+			
+			if(temp->right!=NULL)
+				push(&s1,temp->right);
+		}	
+		while(!isEmpty(&s2))
+		{
+			temp = pop(&s2);
+			printf("%d ", temp->item);
+		}	
+	}	
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -88,9 +88,37 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+//스택을 사용하여 이진탐색 트리 중위 순회 , left->root->right
 void inOrderTraversal(BSTNode *root)
 {
-	 /* add your code here */
+	/* add your code here */
+	Stack s;
+	s.top = NULL;
+
+	BSTNode *temp;
+	temp = root;
+
+	if(temp == NULL)	 return;
+	
+	while(1)
+	{
+		if(temp != NULL)
+		{
+			push(&s,temp);
+			temp = temp->left;				//왼쪽 자식 노드 이동
+		}
+		else
+		{
+			if(!isEmpty(&s))	
+			{
+				temp = pop(&s);				
+				printf("%d ", temp->item);
+				temp= temp->right;			//이제 오른쪽 확인
+			}	
+			else 
+				break;
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////

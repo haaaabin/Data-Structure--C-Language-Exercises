@@ -91,10 +91,33 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+//레벨순으로 트리를 순회하며 노드의 값 출력
 void levelOrderTraversal(BSTNode* root)
 {
-
     /* add your code here */
+	Queue q;			//순회하며 방문할 노드들을 임시로 저장
+	q.head = NULL;
+	q.tail = NULL;
+
+	BSTNode *temp;
+	temp = 	root;
+
+	if(temp == NULL)
+		return;
+	else
+	{
+		enqueue(&q.head, &q.tail, temp);	//루트 노드를 큐에 삽이	
+		while(!isEmpty(q.head))
+		{
+			temp = dequeue(&q.head, &q.tail);	//큐에서 노드를 꺼내 해당 노드의 값 출력
+			printf("%d ",temp->item);
+
+			if(temp->left != NULL)
+				enqueue(&q.head, &q.tail, temp->left);
+			if(temp->right != NULL)
+				enqueue(&q.head, &q.tail, temp->right);
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -155,8 +178,8 @@ void enqueue(QueueNode **headPtr, QueueNode **tailPtr, BSTNode *node)
 
 BSTNode* dequeue(QueueNode **headPtr, QueueNode **tailPtr)
 {
-	BSTNode *node = (*headPtr)->data;
-	QueueNode *tempPtr = *headPtr;
+	BSTNode *node = (*headPtr)->data;	//첫 번째 노드의 데이터 저장
+	QueueNode *tempPtr = *headPtr;	//headptr을 가리키는 포인터 저장
 	*headPtr = (*headPtr)->nextPtr;
 
 	if (*headPtr == NULL) {

@@ -88,10 +88,32 @@ int main()
 }
 
 //////////////////////////////////////////////////////////////////////////////////
-
+//스택을 사용해서 전위순회
 void preOrderIterative(BSTNode *root)
 {
-	 /* add your code here */
+	/* add your code here */
+	Stack s;
+	s.top = NULL;
+
+	BSTNode *temp;
+	temp = root;
+
+	if(temp == NULL) 	return;
+	else
+	{
+		push(&s, temp);	
+		
+		while(!isEmpty(&s))
+		{
+			temp = pop(&s);
+			printf("%d ", temp->item);
+
+			if(temp->right != NULL)
+				push(&s,temp->right);
+			if(temp->left != NULL)
+				push(&s,temp->left);
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////
